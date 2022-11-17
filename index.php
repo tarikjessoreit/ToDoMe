@@ -1,3 +1,11 @@
+<?php include "config.php"; ?>
+<?php 
+  if (isset($_SESSION['logStatus'])) {
+   if ($_SESSION['logStatus'] === true) {
+      header('location:dashboard.php');
+    }
+  }
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -11,6 +19,29 @@
     <div class="container">
       <div class="row">
         <div class="col">
+          <?php 
+          $msg="";
+          $err="";
+            if (isset($_POST['loginbtn'])) {
+              $username = $_POST['uname'];
+              $user_password = md5($_POST['upass']);
+
+              $sql = "SELECT * FROM $users_tbl WHERE username = '$username' AND user_password = '$user_password'";
+              $res = $con->query($sql);
+              if($res->num_rows>0){
+                while($ldata = $res->fetch_assoc()){
+                   $_SESSION['userID'] = $ldata['ID'];
+                   $_SESSION['username'] = $ldata['username'];
+                   $_SESSION['logStatus'] = true;
+                }
+                $msg = "Login Successfull";
+                header('location:dashboard.php');
+              }else{
+                $err = "Login Faild: ".$con->error;
+              }
+            }
+
+           ?>
           <section class="vh-100">
             <div class="container py-5 h-100">
               <div class="row d-flex align-items-center justify-content-center h-100">
@@ -19,7 +50,20 @@
                     class="img-fluid" alt="Phone image">
                   </div>
                   <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-                    <form action="dashboard.php">
+                    <?php if(!empty($err)){ ?>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                      <strong><?php echo $err; ?></strong>
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    <?php } ?>
+
+                    <?php if(!empty($msg)){ ?>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                      <strong><?php echo $msg; ?></strong>
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    <?php } ?>
+                    <form action="" method="post">
                       <!-- Email input -->
                       <div class="form-outline mb-4">
                         <input type="text" name="uname" id="username" class="form-control form-control-lg" placeholder="Enter UserName" />
@@ -42,7 +86,7 @@
                       </div>
 
                       <!-- Submit button -->
-                      <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
+                      <button type="submit" name="loginbtn" class="btn btn-primary btn-lg btn-block">Sign in</button>
 
                       <div class="divider d-flex align-items-center my-4">
                         <p class="text-center fw-bold mx-3 mb-0 text-muted">OR</p>

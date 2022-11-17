@@ -6,11 +6,10 @@
         <div class="col">
 
           <?php 
-            $sql ="SELECT * FROM $notes_tbl WHERE user_ID = 1";
+            $sql ="SELECT * FROM $notes_tbl WHERE user_ID = ".$_SESSION['userID'];
             $res = $con->query($sql);
             if ($res->num_rows > 0) {
               while($row = $res->fetch_assoc()){?>
-
             <!-- item -->
             <div class="card mb-4">
               <div class="card-header h4 bg-warning">

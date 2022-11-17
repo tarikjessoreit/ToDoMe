@@ -7,7 +7,7 @@
       $msg="";
       $err="";
         if (isset($_POST['addbtn'])) {
-          $user_id  = 1;
+          $user_id  = $_SESSION['userID'];
           $nt_date = date('Y-m-d h:i:s');
           $nt_title = input_validation($_POST['notetitle']);
           $nt_desc = input_validation($_POST['notdesc']);

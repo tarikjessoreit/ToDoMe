@@ -1,5 +1,13 @@
 <?php include "config.php"; ?>
 <?php include "functions.php"; ?>
+<?php 
+  if (!isset($_SESSION['logStatus'])) {
+   if ($_SESSION['logStatus'] != true) {
+      header('location:index.php');
+    }
+  }
+
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -33,12 +41,12 @@
             <div class="dropdown">
               <button class="dropdown-toggle border-0 bg-light" data-bs-toggle="dropdown" aria-expanded="false">
                 <img src="assets/images/default-avatar.png" alt="" width="35">
-                Mr. Jon
+                <?php echo $_SESSION['username']; ?>
               </button>
               <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="#">Profile</a></li>
                 <li><a class="dropdown-item" href="#">Settings</a></li>
-                <li><a class="dropdown-item" href="#">logout</a></li>
+                <li><a class="dropdown-item" href="logout.php">logout</a></li>
               </ul>
             </div>
           </div>
