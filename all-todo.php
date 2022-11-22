@@ -12,15 +12,16 @@
               while($row = $res->fetch_assoc()){?>
             <!-- item -->
             <div class="card mb-4">
-              <div class="card-header h4 bg-warning">
-                # <?php echo $row['ID'] ?> <?php echo $row['note_title']; ?>
+              <div class="card-header bg-warning d-flex justify-content-between">
+                <span class="h4"># <?php echo $row['ID'] ?> <?php echo $row['note_title']; ?></span>
+                <span><?php echo date("d/m/Y h:i:s A",strtotime($row['note_added_date'])) ?></span>
               </div>
               <div class="card-body">
                <?php echo $row['note_description']; ?>
               </div>
               <div class="card-footer text-end">
-                <a href="edit.php?eid=<?php echo $row['ID'] ?>" class="btn btn-sm btn-primary">Edit <i class="fas fa-edit"></i></a>
-                <a href="?did=<?php echo $row['ID'] ?>" class="btn btn-sm btn-danger">Delete <i class="fas fa-trash"></i></a>
+                <a href="edit.php?eid=<?php echo $row['ID'] ?>&ref=all-todo" class="btn btn-sm btn-primary">Edit <i class="fas fa-edit"></i></a>
+                <a href="delete.php?did=<?php echo $row['ID'] ?>&ref=all-todo" class="btn btn-sm btn-danger">Delete <i class="fas fa-trash"></i></a>
               </div>
             </div><!--/item-->
 

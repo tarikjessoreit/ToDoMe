@@ -25,5 +25,7 @@
 	// 	echo "Query Failed: ".$con->error;
 	// }
 
+	$current_uid  = $_SESSION['userID'];
+
 
  ?>

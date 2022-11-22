@@ -7,7 +7,6 @@
       $msg="";
       $err="";
         if (isset($_POST['addbtn'])) {
-          $user_id  = $_SESSION['userID'];
           $nt_date = date('Y-m-d h:i:s');
           $nt_title = input_validation($_POST['notetitle']);
           $nt_desc = input_validation($_POST['notdesc']);
@@ -15,7 +14,7 @@
 
 
 
-          $sql = "INSERT INTO $notes_tbl(user_ID, note_added_date, note_title, note_description, note_status) VALUES ($user_id,'$nt_date','$nt_title', '$nt_desc', '$nt_status' )";
+          $sql = "INSERT INTO $notes_tbl(user_ID, note_added_date, note_title, note_description, note_status) VALUES ($current_uid,'$nt_date','$nt_title', '$nt_desc', '$nt_status' )";
 
           if($con->query($sql)==true){
             $msg = "Data Added Successfull";

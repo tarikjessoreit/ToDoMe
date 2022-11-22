@@ -18,3 +18,23 @@ $(document).ready(function () {
         }
     });
 });
+
+
+
+
+// ajax
+    function ajax(){
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("loadajaxdata").innerHTML = this.responseText;
+          }
+        };
+        xmlhttp.open("GET", "ajax.php", true);
+        xmlhttp.send();
+    }
+    
+
+    setInterval(function () {
+        ajax();
+    }, 500);
